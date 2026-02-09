@@ -1,0 +1,12 @@
+test\port.o: ..\MiddleWare\FreeRTOS\Portable\port.c
+test\port.o: ..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h
+test\port.o: D:\keil\ARM\ARMCC\Bin\..\include\stddef.h
+test\port.o: D:\keil\ARM\ARMCC\Bin\..\include\stdint.h
+test\port.o: ..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h
+test\port.o: ..\MiddleWare\FreeRTOS\Inc\projdefs.h
+test\port.o: ..\MiddleWare\FreeRTOS\Inc\portable.h
+test\port.o: ..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h
+test\port.o: ..\MiddleWare\FreeRTOS\Inc\portmacro.h
+test\port.o: ..\MiddleWare\FreeRTOS\Inc\mpu_wrappers.h
+test\port.o: ..\MiddleWare\FreeRTOS\Inc\task.h
+test\port.o: ..\MiddleWare\FreeRTOS\Inc\list.h
