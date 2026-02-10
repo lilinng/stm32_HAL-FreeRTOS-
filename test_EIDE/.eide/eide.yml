@@ -70,13 +70,17 @@ virtualFolder:
             - path: ../test/MiddleWare/FreeRTOS/Portable/heap_4.c
             - path: ../test/MiddleWare/FreeRTOS/Portable/port.c
           folders: []
+    - name: HardWare
+      files:
+        - path: ../test/MDK-ARM/Hardware/Src/FreeRTOS_demo.c
+      folders: []
     - name: ::CMSIS
       files: []
       folders: []
 dependenceList: []
 outDir: build
 miscInfo:
-  uid: 7f3f0ce4d184e1569cc1be40c8af3386
+  uid: 5ba864f37fd8393e207bde9aa56ae8a8
 targets:
   test:
     cppPreprocessAttrs:
@@ -90,6 +94,7 @@ targets:
         - ../test/Drivers/CMSIS/Device/ST/STM32F1xx/Include
         - ../test/Drivers/CMSIS/Include
         - ../test/MiddleWare/FreeRTOS/Inc
+        - ../test/MDK-ARM/Hardware/Inc
         - .cmsis/include
         - ../test/MDK-ARM/RTE/_test
       libList: []

@@ -30,3 +30,5 @@ test\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 test\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 test\main.o: ../Core/Inc/usart.h
 test\main.o: ../Core/Inc/gpio.h
+test\main.o: D:\keil\ARM\ARMCC\Bin\..\include\stdio.h
+test\main.o: .\Hardware\Inc\FreeRTOS_demo.h

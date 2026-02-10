@@ -30,6 +30,7 @@
 "test\timers.o"
 "test\heap_4.o"
 "test\port.o"
+"test\freertos_demo.o"
 --library_type=microlib --strict --scatter "test\test.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

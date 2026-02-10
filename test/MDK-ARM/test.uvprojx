@@ -138,7 +138,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2V8M.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xE</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\MiddleWare\FreeRTOS\Inc</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\MiddleWare\FreeRTOS\Inc;.\Hardware\Inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -568,6 +568,16 @@
               <FileName>port.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\MiddleWare\FreeRTOS\Portable\port.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>HardWare</GroupName>
+          <Files>
+            <File>
+              <FileName>FreeRTOS_demo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Src\FreeRTOS_demo.c</FilePath>
             </File>
           </Files>
         </Group>
