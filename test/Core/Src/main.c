@@ -23,6 +23,10 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "timers.h"
+#include "FreeRTOSConfig.h"
 #include "FreeRTOS_demo.h"
 /* USER CODE END Includes */
 
@@ -44,6 +48,33 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+/*==============================静态分配函数实现===============================*/
+//分配空闲任务的内存
+//资源
+StackType_t idle_task_stack[configMINIMAL_STACK_SIZE];
+StaticTask_t idle_task_tcb;
+//实现
+void vApplicationGetIdleTaskMemory( StaticTask_t ** ppxIdleTaskTCBBuffer,
+                                        StackType_t ** ppxIdleTaskStackBuffer,
+                                        configSTACK_DEPTH_TYPE * puxIdleTaskStackSize )
+{
+  *ppxIdleTaskTCBBuffer = &idle_task_tcb;
+  *ppxIdleTaskStackBuffer = idle_task_stack;
+  *puxIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+}
+//分配软件定时器任务的内存
+//资源
+StackType_t timer_task_stack[configTIMER_TASK_STACK_DEPTH];
+StaticTask_t timer_task_tcb;
+//实现
+void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
+                                         StackType_t ** ppxTimerTaskStackBuffer,
+                                         configSTACK_DEPTH_TYPE * puxTimerTaskStackSize )
+{
+  *ppxTimerTaskTCBBuffer = &timer_task_tcb;
+  *ppxTimerTaskStackBuffer = timer_task_stack;
+  *puxTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;
+}                                         
 
 /* USER CODE END PV */
 
