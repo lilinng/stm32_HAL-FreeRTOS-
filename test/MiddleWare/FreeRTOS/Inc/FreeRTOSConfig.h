@@ -100,6 +100,13 @@ NVIC value of 255. */
 #define configTIMER_QUEUE_LENGTH    5   //软件定时器任务的消息队列长度,即同时可以有多少个定时器处于活动状态
 #define configTIMER_TASK_STACK_DEPTH    (configMINIMAL_STACK_SIZE*2)    //软件定时器任务的堆栈深度,默认设置为最小堆栈深度的两倍
 
+//使能任务挂起和恢复功能
+#define INCLUDE_vTaskSuspend    1
+#define INCLUDE_xTaskResumeFromISR    1 //使能从中断中恢复任务的功能,默认已经置1
+
+//开启任务追踪
+// #define configUSE_TRACE_FACILITY    1    见51行
+#define configUSE_STATS_FORMATTING_FUNCTIONS    1   //格式化任务状态信息的函数,默认已经置1
 
 #endif /* FREERTOS_CONFIG_H */
 

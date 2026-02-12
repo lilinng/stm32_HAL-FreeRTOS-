@@ -61,7 +61,7 @@ unsigned char Key_Scan(void)
     return 0;
 }
 
-void freertos_start(void)
+void FreeRTOS_Start(void)
 {
     //创建一个启动任务，使用静态内存分配方式创建
     start_task_handle = xTaskCreateStatic((TaskFunction_t)start_task,
