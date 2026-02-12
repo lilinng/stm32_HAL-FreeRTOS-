@@ -27,6 +27,8 @@ virtualFolder:
                 - path: ../test/Core/Src/stm32f1xx_hal_msp.c
                 - path: ../test/Core/Src/stm32f1xx_hal_timebase_tim.c
                 - path: ../test/MiddleWare/FreeRTOS/Inc/FreeRTOSConfig.h
+                - path: ../test/Core/Src/tim.c
+                - path: ../test/Core/Src/define_collection.txt
               folders: []
     - name: Drivers
       files: []

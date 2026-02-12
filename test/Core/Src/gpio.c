@@ -75,5 +75,41 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 2 */
+KEY_ENUM Key_Scan(void)
+{
+    if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_13) == GPIO_PIN_RESET)
+    {
+        HAL_Delay(10);
+        if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_13) == GPIO_PIN_RESET)
+        {
+            return KEY1;
+        }
+    }
+    else if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_14) == GPIO_PIN_RESET)
+    {
+        HAL_Delay(10);
+        if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_14) == GPIO_PIN_RESET)
+        {
+            return KEY2;
+        }
+    }
+    else if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_15) == GPIO_PIN_RESET)
+    {
+        HAL_Delay(10);
+        if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_15) == GPIO_PIN_RESET)
+        {
+            return KEY3;
+        }
+    }
+    else if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_10) == GPIO_PIN_RESET)
+    {
+        HAL_Delay(10);
+        if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_10) == GPIO_PIN_RESET)
+        {
+            return KEY4;
+        }
+    }
+    return NO_PRESS;
+}
 
 /* USER CODE END 2 */

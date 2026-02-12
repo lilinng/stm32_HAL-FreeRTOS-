@@ -1,0 +1,35 @@
+//FreeRTOS对接芯片中断的接口函数,也是必须的3个宏
+#define xPortPendSVHandler	PendSV_Handler
+#define vPortSVCHandler	SVC_Handler
+#define INCLUDE_xTaskGetSchedulerState	1
+
+//开启静态内存分配功能
+#define configSUPPORT_STATIC_ALLOCATION    1
+
+//关闭动态内存分配功能,不影响静态内存分配功能的使用
+#define configSUPPORT_DYNAMIC_ALLOCATION    0
+
+//为空闲任务和定时器任务自动分配内存
+#define configKERNEL_PROVIDED_STATIC_MEMORY    1 //置1后无需手动实现vApplicationGetIdleTaskMemory()和vApplicationGetTimerTaskMemory()函数
+
+//使用软件定时器
+#define configUSE_TIMERS    1   //使能软件定时器功能        
+#define configTIMER_TASK_PRIORITY    (configMAX_PRIORITIES-1)  //软件定时器任务优先级,默认设置为最高优先级-1
+#define configTIMER_QUEUE_LENGTH    5   //软件定时器任务的消息队列长度,即同时可以有多少个定时器处于活动状态
+#define configTIMER_TASK_STACK_DEPTH    (configMINIMAL_STACK_SIZE*2)    //软件定时器任务的堆栈深度,默认设置为最小堆栈深度的两倍
+
+//使能任务挂起和恢复功能
+#define INCLUDE_vTaskSuspend    1    //使能任务挂起功能,默认已经置1
+#define INCLUDE_xTaskResumeFromISR    1 //使能从中断中恢复任务的功能,默认已经置1
+
+//开启任务追踪
+#define configUSE_TRACE_FACILITY    1    见51行
+#define configUSE_STATS_FORMATTING_FUNCTIONS    1   //格式化任务状态信息的函数,默认已经置1
+
+//配置FreeRTOS中断相关的宏
+//FreeRTOS内核中断优先级，默认为stm32的最低优先级15，由于NVIC是8位寄存器，且抢占优先级是高四位生效，因此左移四位
+#define configKERNEL_INTERRUPT_PRIORITY (15<<4) //1111<<4 -> 11110000    
+//配置FreeRTOS屏蔽的中断优先级，此处屏蔽了5-15的中断，即5-15的中断由FreeRTOS管理，0-4的中断不受FreeRTOS管理，优先级更高，可以直接打断FreeRTOS的任务执行
+#define configMAX_SYSCALL_INTERRUPT_PRIORITY (5<<4) //0101<<4 -> 01010000   
+//版本兼容宏
+#define configMAX_API_CALL_INTERRUPT_PRIORITY configMAX_SYSCALL_INTERRUPT_PRIORITY
