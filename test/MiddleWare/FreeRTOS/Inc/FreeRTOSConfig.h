@@ -48,7 +48,7 @@
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 )
 #define configTOTAL_HEAP_SIZE		( ( size_t ) ( 17 * 1024 ) )
 #define configMAX_TASK_NAME_LEN		( 16 )
-#define configUSE_TRACE_FACILITY	0
+#define configUSE_TRACE_FACILITY	1
 #define configUSE_16_BIT_TICKS		0
 #define configIDLE_SHOULD_YIELD		1
 
@@ -105,7 +105,7 @@ NVIC value of 255. */
 #define INCLUDE_xTaskResumeFromISR    1 //使能从中断中恢复任务的功能,默认已经置1
 
 //开启任务追踪
-#define configUSE_TRACE_FACILITY    1
+// #define configUSE_TRACE_FACILITY    1    见51行
 #define configUSE_STATS_FORMATTING_FUNCTIONS    1   //格式化任务状态信息的函数,默认已经置1
 
 #endif /* FREERTOS_CONFIG_H */
