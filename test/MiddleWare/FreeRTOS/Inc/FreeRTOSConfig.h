@@ -81,9 +81,25 @@ configKERNEL_INTERRUPT_PRIORITY setting.  Here 15 corresponds to the lowest
 NVIC value of 255. */
 #define configLIBRARY_KERNEL_INTERRUPT_PRIORITY	15
 
+//FreeRTOS对接芯片中断的接口函数
 #define xPortPendSVHandler	PendSV_Handler
 #define vPortSVCHandler	SVC_Handler
 #define INCLUDE_xTaskGetSchedulerState	1
+
+//开启静态内存分配功能
+#define configSUPPORT_STATIC_ALLOCATION    1
+
+//关闭动态内存分配功能,不影响静态内存分配功能的使用
+// #define configSUPPORT_DYNAMIC_ALLOCATION    0
+
+#define configKERNEL_PROVIDED_STATIC_MEMORY    0
+
+//使用软件定时器
+#define configUSE_TIMERS    1   //使能软件定时器功能        
+#define configTIMER_TASK_PRIORITY    (configMAX_PRIORITIES-1)  //软件定时器任务优先级,默认设置为最高优先级-1
+#define configTIMER_QUEUE_LENGTH    5   //软件定时器任务的消息队列长度,即同时可以有多少个定时器处于活动状态
+#define configTIMER_TASK_STACK_DEPTH    (configMINIMAL_STACK_SIZE*2)    //软件定时器任务的堆栈深度,默认设置为最小堆栈深度的两倍
+
 
 #endif /* FREERTOS_CONFIG_H */
 

@@ -31,4 +31,14 @@ test\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 test\main.o: ../Core/Inc/usart.h
 test\main.o: ../Core/Inc/gpio.h
 test\main.o: D:\keil\ARM\ARMCC\Bin\..\include\stdio.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\projdefs.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\portable.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\portmacro.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\mpu_wrappers.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\task.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\list.h
+test\main.o: ..\MiddleWare\FreeRTOS\Inc\timers.h
 test\main.o: .\Hardware\Inc\FreeRTOS_demo.h

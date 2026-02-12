@@ -1,7 +1,7 @@
 Dependencies for Project 'test', Target 'test': (DO NOT MODIFY !)
 CompilerVersion: 5060528::V5.06 update 5 (build 528)::ARMCC
 F (startup_stm32f103xe.s)(0x6989C234)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include--pd "__UVISION_VERSION SETA 539" --pd "_RTE_ SETA 1" --pd "STM32F10X_HD SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f103xe.lst --xref -o test\startup_stm32f103xe.o --depend test\startup_stm32f103xe.d)
-F (../Core/Src/main.c)(0x698A0842)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\main.o --omf_browse test\main.crf --depend test\main.d)
+F (../Core/Src/main.c)(0x698D8479)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\main.o --omf_browse test\main.crf --depend test\main.d)
 I (../Core/Inc/main.h)(0x6989C232)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6874DC5C)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6989C232)
@@ -33,8 +33,18 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6874DC5C)
 I (../Core/Inc/usart.h)(0x6989C231)
 I (../Core/Inc/gpio.h)(0x6989C231)
 I (D:\keil\ARM\ARMCC\include\stdio.h)(0x588B8344)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
+I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
+I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
+I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
+I (..\MiddleWare\FreeRTOS\Inc\portmacro.h)(0x6989C001)
+I (..\MiddleWare\FreeRTOS\Inc\mpu_wrappers.h)(0x6989C000)
+I (..\MiddleWare\FreeRTOS\Inc\task.h)(0x6989C001)
+I (..\MiddleWare\FreeRTOS\Inc\list.h)(0x6989C000)
+I (..\MiddleWare\FreeRTOS\Inc\timers.h)(0x6989C001)
 I (.\Hardware\Inc\FreeRTOS_demo.h)(0x6989FB32)
-F (../Core/Src/gpio.c)(0x698A0029)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\gpio.o --omf_browse test\gpio.crf --depend test\gpio.d)
+F (../Core/Src/gpio.c)(0x698A0ECB)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\gpio.o --omf_browse test\gpio.crf --depend test\gpio.d)
 I (../Core/Inc/gpio.h)(0x6989C231)
 I (../Core/Inc/main.h)(0x6989C232)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6874DC5C)
@@ -124,8 +134,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x6874DC5C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x6874DC5C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6874DC5C)
 I (../Core/Inc/stm32f1xx_it.h)(0x6989C232)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -190,7 +200,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6874DC5C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x6874DC5C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x6874DC5C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6874DC5C)
-F (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)()
+F (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)()
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c)(0x6874DC5C)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\stm32f1xx_hal_gpio_ex.o --omf_browse test\stm32f1xx_hal_gpio_ex.crf --depend test\stm32f1xx_hal_gpio_ex.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6874DC5C)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6989C232)
@@ -612,10 +622,10 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x6874DC5C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x6874DC5C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6874DC5C)
 F (..\MiddleWare\FreeRTOS\Src\croutine.c)(0x6989C000)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\croutine.o --omf_browse test\croutine.crf --depend test\croutine.d)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -626,10 +636,10 @@ I (..\MiddleWare\FreeRTOS\Inc\list.h)(0x6989C000)
 I (..\MiddleWare\FreeRTOS\Inc\croutine.h)(0x6989C000)
 F (..\MiddleWare\FreeRTOS\Src\event_groups.c)(0x6989C000)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\event_groups.o --omf_browse test\event_groups.crf --depend test\event_groups.d)
 I (D:\keil\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -641,10 +651,10 @@ I (..\MiddleWare\FreeRTOS\Inc\timers.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\event_groups.h)(0x6989C000)
 F (..\MiddleWare\FreeRTOS\Src\list.c)(0x6989C001)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\list.o --omf_browse test\list.crf --depend test\list.d)
 I (D:\keil\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -654,10 +664,10 @@ I (..\MiddleWare\FreeRTOS\Inc\list.h)(0x6989C000)
 F (..\MiddleWare\FreeRTOS\Src\queue.c)(0x6989C001)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\queue.o --omf_browse test\queue.crf --depend test\queue.d)
 I (D:\keil\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\string.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -668,10 +678,10 @@ I (..\MiddleWare\FreeRTOS\Inc\list.h)(0x6989C000)
 I (..\MiddleWare\FreeRTOS\Inc\queue.h)(0x6989C001)
 F (..\MiddleWare\FreeRTOS\Src\stream_buffer.c)(0x6989C001)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\stream_buffer.o --omf_browse test\stream_buffer.crf --depend test\stream_buffer.d)
 I (D:\keil\ARM\ARMCC\include\string.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -683,10 +693,10 @@ I (..\MiddleWare\FreeRTOS\Inc\stream_buffer.h)(0x6989C001)
 F (..\MiddleWare\FreeRTOS\Src\tasks.c)(0x6989C001)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\tasks.o --omf_browse test\tasks.crf --depend test\tasks.d)
 I (D:\keil\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\string.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -698,10 +708,10 @@ I (..\MiddleWare\FreeRTOS\Inc\timers.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\stack_macros.h)(0x6989C001)
 F (..\MiddleWare\FreeRTOS\Src\timers.c)(0x6989C001)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\timers.o --omf_browse test\timers.crf --depend test\timers.d)
 I (D:\keil\ARM\ARMCC\include\stdlib.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -714,10 +724,10 @@ I (..\MiddleWare\FreeRTOS\Inc\timers.h)(0x6989C001)
 F (..\MiddleWare\FreeRTOS\Portable\heap_4.c)(0x6989C001)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\heap_4.o --omf_browse test\heap_4.crf --depend test\heap_4.d)
 I (D:\keil\ARM\ARMCC\include\stdlib.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\string.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -726,10 +736,10 @@ I (..\MiddleWare\FreeRTOS\Inc\mpu_wrappers.h)(0x6989C000)
 I (..\MiddleWare\FreeRTOS\Inc\task.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\list.h)(0x6989C000)
 F (..\MiddleWare\FreeRTOS\Portable\port.c)(0x6989C001)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\port.o --omf_browse test\port.crf --depend test\port.d)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
@@ -737,11 +747,11 @@ I (..\MiddleWare\FreeRTOS\Inc\portmacro.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\mpu_wrappers.h)(0x6989C000)
 I (..\MiddleWare\FreeRTOS\Inc\task.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\list.h)(0x6989C000)
-F (.\Hardware\Src\FreeRTOS_demo.c)(0x698A08F2)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\freertos_demo.o --omf_browse test\freertos_demo.crf --depend test\freertos_demo.d)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x6989C6E4)
+F (.\Hardware\Src\FreeRTOS_demo.c)(0x698D8668)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\MiddleWare\FreeRTOS\Inc -I .\Hardware\Inc-I.\RTE\_test-ID:\keil\ARM\PACK\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-D__UVISION_VERSION="539" -D_RTE_ -DSTM32F10X_HD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xE-o test\freertos_demo.o --omf_browse test\freertos_demo.crf --depend test\freertos_demo.d)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOS.h)(0x698AAD91)
 I (D:\keil\ARM\ARMCC\include\stddef.h)(0x588B8344)
 I (D:\keil\ARM\ARMCC\include\stdint.h)(0x588B8344)
-I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698A0CBE)
+I (..\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h)(0x698D8592)
 I (..\MiddleWare\FreeRTOS\Inc\projdefs.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\portable.h)(0x6989C001)
 I (..\MiddleWare\FreeRTOS\Inc\deprecated_definitions.h)(0x6989C000)
