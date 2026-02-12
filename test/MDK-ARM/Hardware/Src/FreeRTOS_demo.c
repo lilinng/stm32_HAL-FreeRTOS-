@@ -49,6 +49,22 @@ unsigned char Key_Scan(void)
             return 2;
         }
     }
+    else if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_15) == GPIO_PIN_RESET)
+    {
+        HAL_Delay(10);
+        if(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_15) == GPIO_PIN_RESET)
+        {
+            return 3;
+        }
+    }
+    else if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_10) == GPIO_PIN_RESET)
+    {
+        HAL_Delay(10);
+        if(HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_10) == GPIO_PIN_RESET)
+        {
+            return 4;
+        }
+    }
     return 0;
 }
 
@@ -124,31 +140,49 @@ void start_task2(void *pvParameters)
 }
 void start_task3(void *pvParameters)
 {
+    char task_info[200]={0};
     unsigned char key_value=0;
     while (1)
     {
         //任务3的代码
         printf("This is task3\r\n");
         key_value=Key_Scan();
-        if(key_value==1)
+        switch(key_value)
         {
-            //判断是否已经删除过，避免重复执行删除
-            if(start_task1_handle != NULL)  //被删除的句柄需要被赋值为NULL
+            case 1:
             {
-                printf("KEY1 Pressed\r\n");
-                vTaskDelete(start_task1_handle);
-                start_task1_handle = NULL;
+                //挂起任务1
+                vTaskSuspend(start_task1_handle);
+                printf(">>>>>suspend task1<<<<<\r\n");
+                break;
             }
-        }
-        else if(key_value==2)
-        {
-            if(start_task2_handle != NULL)  //被删除的句柄会被赋值为NULL
+            case 2:
             {
-                printf("KEY2 Pressed\r\n");
-                vTaskDelete(start_task2_handle);
-                start_task2_handle = NULL;
+                //恢复任务1
+                vTaskResume(start_task1_handle);
+                printf(">>>>>resume task1<<<<<\r\n");
+                break;
             }
+            case 3:
+            {
+                //挂起和使能调度器
+                vTaskSuspendAll();
+                printf(">>>>>suspend all tasks<<<<<\r\n");
+                break;
+            }
+            case 4:
+            {
+                //恢复和使能调度器
+                xTaskResumeAll();
+                printf(">>>>>resume all tasks<<<<<\r\n");
+                break;
+            }
+            default:
+                break;
         }
+        //打印任务状态
+        vTaskList(task_info);
+        printf("%s\r\n",task_info);
         //不加延时则低优先级的任务一直不能实现调度,无法实现LED闪烁
         vTaskDelay(500);
     }
