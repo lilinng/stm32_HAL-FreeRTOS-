@@ -20,6 +20,7 @@
 #include "main.h"
 #include "usart.h"
 #include "gpio.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stdio.h"
@@ -48,11 +49,19 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-/*==============================静态分配函数实现===============================*/
-//分配空闲任务的内存
+/*==============================静态分配函数资源及实现===============================*/
 //资源
 StackType_t idle_task_stack[configMINIMAL_STACK_SIZE];
 StaticTask_t idle_task_tcb;
+//资源
+StackType_t timer_task_stack[configTIMER_TASK_STACK_DEPTH];
+StaticTask_t timer_task_tcb;
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+/* USER CODE BEGIN PFP */
+//分配空闲任务的内存
 //实现
 void vApplicationGetIdleTaskMemory( StaticTask_t ** ppxIdleTaskTCBBuffer,
                                         StackType_t ** ppxIdleTaskStackBuffer,
@@ -63,9 +72,6 @@ void vApplicationGetIdleTaskMemory( StaticTask_t ** ppxIdleTaskTCBBuffer,
   *puxIdleTaskStackSize = configMINIMAL_STACK_SIZE;
 }
 //分配软件定时器任务的内存
-//资源
-StackType_t timer_task_stack[configTIMER_TASK_STACK_DEPTH];
-StaticTask_t timer_task_tcb;
 //实现
 void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
                                          StackType_t ** ppxTimerTaskStackBuffer,
@@ -74,13 +80,8 @@ void vApplicationGetTimerTaskMemory( StaticTask_t ** ppxTimerTaskTCBBuffer,
   *ppxTimerTaskTCBBuffer = &timer_task_tcb;
   *ppxTimerTaskStackBuffer = timer_task_stack;
   *puxTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;
-}                                         
-
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-/* USER CODE BEGIN PFP */
+}    
+//重定向printf函数到串口                                     
 int fputc(int ch, FILE *f)
 {
     HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
@@ -126,7 +127,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   //启动FreeRTOS
   printf("FreeRTOS Start\r\n");
-  freertos_start();
+  FreeRTOS_Start();
   //写在此函数后面的代码都不会被执行，CPU会一直在调度器中运行任务
   /* USER CODE END 2 */
 

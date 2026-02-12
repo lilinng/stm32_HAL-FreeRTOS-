@@ -5,7 +5,7 @@ extern "C"
 {
 #endif
 
-void freertos_start(void);
+void FreeRTOS_Start(void);
 
 
 #ifdef __cplusplus
