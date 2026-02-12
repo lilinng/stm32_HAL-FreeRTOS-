@@ -87,22 +87,27 @@ NVIC value of 255. */
 #define INCLUDE_xTaskGetSchedulerState	1
 
 //开启静态内存分配功能
-#define configSUPPORT_STATIC_ALLOCATION    1
+// #define configSUPPORT_STATIC_ALLOCATION    1
 
 //关闭动态内存分配功能,不影响静态内存分配功能的使用
 // #define configSUPPORT_DYNAMIC_ALLOCATION    0
 
-#define configKERNEL_PROVIDED_STATIC_MEMORY    0
+//为空闲任务和定时器任务自动分配内存
+// #define configKERNEL_PROVIDED_STATIC_MEMORY    1 //置1后无需手动实现vApplicationGetIdleTaskMemory()和vApplicationGetTimerTaskMemory()函数
 
 //使用软件定时器
-#define configUSE_TIMERS    1   //使能软件定时器功能        
-#define configTIMER_TASK_PRIORITY    (configMAX_PRIORITIES-1)  //软件定时器任务优先级,默认设置为最高优先级-1
-#define configTIMER_QUEUE_LENGTH    5   //软件定时器任务的消息队列长度,即同时可以有多少个定时器处于活动状态
-#define configTIMER_TASK_STACK_DEPTH    (configMINIMAL_STACK_SIZE*2)    //软件定时器任务的堆栈深度,默认设置为最小堆栈深度的两倍
+// #define configUSE_TIMERS    1   //使能软件定时器功能        
+// #define configTIMER_TASK_PRIORITY    (configMAX_PRIORITIES-1)  //软件定时器任务优先级,默认设置为最高优先级-1
+// #define configTIMER_QUEUE_LENGTH    5   //软件定时器任务的消息队列长度,即同时可以有多少个定时器处于活动状态
+// #define configTIMER_TASK_STACK_DEPTH    (configMINIMAL_STACK_SIZE*2)    //软件定时器任务的堆栈深度,默认设置为最小堆栈深度的两倍
 
 //使能任务挂起和恢复功能
-#define INCLUDE_vTaskSuspend    1
+// #define INCLUDE_vTaskSuspend    1    //使能任务挂起功能,默认已经置1,见66行
 #define INCLUDE_xTaskResumeFromISR    1 //使能从中断中恢复任务的功能,默认已经置1
+
+//开启任务追踪功能
+#define INCLUDE_vTaskSuspend 1   //使能任务挂起功能,默认已经置1
+#define INCLUDE_xResumeFromISR 1   //使能从中断中恢复任务的功能,默认已经置1
 
 //开启任务追踪
 // #define configUSE_TRACE_FACILITY    1    见51行
