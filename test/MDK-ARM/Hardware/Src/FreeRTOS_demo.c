@@ -1,7 +1,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-13 23:22:52
+ * @LastEditTime: 2026-02-14 00:46:42
  * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 
  */
@@ -85,76 +85,12 @@ void task1(void *pvParameters)
 }
 void task2(void *pvParameters)
 {
+    char task_info[100];
     while (1)
     {
-        printf("Task2 running...\r\n\r\n");
-
-        //通过句柄获取任务优先级
-        UBaseType_t priority = uxTaskPriorityGet(task1_handle);
-        printf("Task1 Priority: %d\r\n\r\n", (uint32_t)priority);
-
-        //修改任务优先级并输出
-        vTaskPrioritySet(task1_handle, priority + 1);
-        priority = uxTaskPriorityGet(task1_handle);
-        printf("Task1 New Priority: %d\r\n\r\n", (uint32_t)priority);
-        vTaskPrioritySet(task1_handle, priority - 1);
-
-        //获取当前系统中任务的数量并输出
-        UBaseType_t task_count = uxTaskGetNumberOfTasks();
-        printf("Total Tasks: %d\r\n\r\n", (uint32_t)task_count);
-
-        //获取所有任务状态信息
-        TaskStatus_t arr[3]={0};
-        uxTaskGetSystemState(arr, 3, NULL);
-        printf("TaskName\t\tTaskNumber\t\tCurrentState\t\tCurrentPriority\t\tBasePriority\r\n");
-        for(uint8_t i=0;i<3;i++)
-        {
-            printf("%s\t\t%d\t\t%d\t\t%d\t\t%d\r\n",
-                    arr[i].pcTaskName,
-                    arr[i].xTaskNumber,
-                    arr[i].eCurrentState,
-                    arr[i].uxCurrentPriority,
-                    arr[i].uxBasePriority);
-            if(i==2)
-            {
-                printf("\r\n");
-            }
-        }
-
-        //获取单个任务的信息
-        TaskStatus_t task_info = {0};
-        //该函数后面两个参数第一个默认传pdTRUE，第二个传eInvalid(第二个属于使能getinfo的选项)
-        vTaskGetInfo(task1_handle,
-                    &task_info, 
-                    pdTRUE, //需要查询堆栈历史剩余最小值
-                    eInvalid);  //设置为eInvalid才会获取真正状态
-        printf("name:%s\r\n", task_info.pcTaskName);
-        printf("number:%d\r\n", task_info.xTaskNumber);
-        printf("state:%d\r\n", task_info.eCurrentState);
-        printf("priority:%d\r\n\r\n", task_info.uxCurrentPriority);
-
-        //获取当前的任务句柄
-        TaskHandle_t current_handle = xTaskGetCurrentTaskHandle();
-        printf("Current Task Handle: %p\t\ttask2 Handle: %p\r\n\r\n", 
-                current_handle,
-                task2_handle);
-
-        //通过任务名获取指定句柄
-        current_handle = xTaskGetHandle("task1");
-        printf("%p = xTaskGetHandle(\"task1\")\r\n\r\n",current_handle);
-
-        //获取任务栈历史最小值(任务栈大小-历史最大值)
-        StackType_t stack_remain_min = uxTaskGetStackHighWaterMark2(task2_handle);
-        printf("task2 stack remain min: %d\r\n\r\n", (uint32_t)stack_remain_min);
-
-        //获取任务状态
-        eTaskState state = eTaskGetState(task2_handle);
-        printf("task2 state: %d\r\n\r\n", (uint32_t)state); //查表见状态
-        
-        //以表格形式显示所有信息
-        char str[100] = {0};
-        vTaskList(str);
-        printf("%s\r\n\r\n",str);
+        printf("Task2 running...\r\n");
+        vTaskGetRunTimeStats(task_info);
+        printf("%s\r\n",task_info);
         vTaskDelay(1000);
     }
 }

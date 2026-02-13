@@ -2,7 +2,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-09 19:17:06
- * @LastEditTime: 2026-02-13 23:37:39
+ * @LastEditTime: 2026-02-14 00:48:19
  * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\Core\Src\main.c
  * @Description: 
  */
@@ -58,12 +58,12 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+volatile unsigned long ulHigFrequencyTimerTicks;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-/* USER CODE BEGIN PFP */  
+/* USER CODE BEGIN PFP */
 //重定向printf函数到串口                                     
 int fputc(int ch, FILE *f)
 {
@@ -108,10 +108,10 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_TIM2_Init();
-  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
   //启动FreeRTOS
+  HAL_TIM_Base_Start_IT(&htim2);
   printf("FreeRTOS Start\r\n");
   HAL_Delay(10);
   FreeRTOS_Start();
@@ -186,12 +186,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   //判断定时器
   if(htim->Instance == TIM2)
   {
-    printf("TIM2 Pre:4,working...\r\n");
+    ulHigFrequencyTimerTicks++;
   }
-  else if(htim->Instance == TIM3)
-  {
-    printf("TIM3 Pre:6,working...\r\n");
-  }
+  
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM7)
   {

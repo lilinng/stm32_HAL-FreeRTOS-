@@ -42,3 +42,8 @@
 #define configUSE_PREEMPTION 1
 //配置时钟源频率
 #define configTICK_RATE_HZ ((TickType_t)1000)
+
+//使用xTaskGetHandle函数需要包含该宏
+#define INCLUDE_xTaskGetHandle	                1
+//使用vTaskGetInfo函数需要包含该宏
+#define INCLUDE_uxTaskGetStackHighWaterMark2    1
