@@ -107,6 +107,7 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim3);
   //启动FreeRTOS
   printf("FreeRTOS Start\r\n");
+  HAL_Delay(10);
   FreeRTOS_Start();
   //写在此函数后面的代码都不会被执行，CPU会一直在调度器中运行任务
   /* USER CODE END 2 */

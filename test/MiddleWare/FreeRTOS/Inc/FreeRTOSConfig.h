@@ -43,7 +43,7 @@
 #define configUSE_IDLE_HOOK			0
 #define configUSE_TICK_HOOK			0
 #define configCPU_CLOCK_HZ			( ( unsigned long ) 72000000 )	
-#define configTICK_RATE_HZ			( ( TickType_t ) 1000 )
+#define configTICK_RATE_HZ			( ( TickType_t ) 20 )
 #define configMAX_PRIORITIES		( 5 )
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 )
 #define configTOTAL_HEAP_SIZE		( ( size_t ) ( 17 * 1024 ) )
@@ -87,21 +87,12 @@ NVIC value of 255. */
 #define vPortSVCHandler	SVC_Handler
 #define INCLUDE_xTaskGetSchedulerState	1
 
-//使能任务挂起和恢复功能
-#define INCLUDE_vTaskSuspend    1    //使能任务挂起功能,默认已经置1
-#define INCLUDE_xTaskResumeFromISR    1 //使能从中断中恢复任务的功能,默认已经置1
-
-//开启任务追踪
-// #define configUSE_TRACE_FACILITY    1    见51行
-#define configUSE_STATS_FORMATTING_FUNCTIONS    1   //格式化任务状态信息的函数,默认已经置1
-
-//配置FreeRTOS中断相关的宏
-//FreeRTOS内核中断优先级，默认为stm32的最低优先级15，由于NVIC是8位寄存器，且抢占优先级是高四位生效，因此左移四位
-// #define configKERNEL_INTERRUPT_PRIORITY (15<<4) //1111<<4 -> 11110000    //见72行
-//配置FreeRTOS屏蔽的中断优先级，此处屏蔽了5-15的中断，即5-15的中断由FreeRTOS管理，0-4的中断不受FreeRTOS管理，优先级更高，可以直接打断FreeRTOS的任务执行
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY (5<<4) //0101<<4 -> 01010000   //见74行
-//版本兼容宏
-#define configMAX_API_CALL_INTERRUPT_PRIORITY configMAX_SYSCALL_INTERRUPT_PRIORITY
+//关于时间片轮转调度的宏
+//开启时间片调度,默认为1
+// #define configUSE_TIME_SLICING 1
+//此二宏见上方
+// #define configUSE_PREEMPTION 1
+// #define configTICK_RATE_HZ ((TickType_t)1000)
 
 #endif /* FREERTOS_CONFIG_H */
 

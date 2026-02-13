@@ -14,10 +14,16 @@ TaskHandle_t start_task_handle;
 #define START_TASK1_PRIORITY 2
 TaskHandle_t start_task1_handle;
 
+//任务2的相关定义
+#define START_TASK2_STACK_SIZE 128
+#define START_TASK2_PRIORITY 2
+TaskHandle_t start_task2_handle;
+
 void start_task(void *pvParameters);
 
 void task1(void *pvParameters);
 
+void task2(void *pvParameters);
 
 void FreeRTOS_Start(void)
 {
@@ -47,6 +53,14 @@ void start_task(void *pvParameters)
                     (UBaseType_t)START_TASK1_PRIORITY,
                     (TaskHandle_t*)&start_task1_handle);
 
+    //创建任务2
+    xTaskCreate((TaskFunction_t)task2,
+                    (char*)"start_task2",
+                    (uint32_t)START_TASK2_STACK_SIZE,
+                    (void*)NULL,
+                    (UBaseType_t)START_TASK2_PRIORITY,
+                    (TaskHandle_t*)&start_task2_handle);
+
     //删除启动任务
     vTaskDelete(NULL);
 
@@ -55,25 +69,23 @@ void start_task(void *pvParameters)
 }
 void task1(void *pvParameters)
 {
-    KEY_ENUM key_value;
+    uint32_t count = 0;
     while (1)
     {
-        key_value = Key_Scan();
-        
-        if(key_value == KEY1)
-        {
-            /*关中断*/
-            portDISABLE_INTERRUPTS();
-            printf(">>>>Close IT<<<<\r\n");
-        }
-        else if(key_value == KEY2)
-        {
-            /*开中断*/
-            portENABLE_INTERRUPTS();
-            printf(">>>>Open IT<<<<\r\n");
-        }
-        //此时不能延时，延时会失能和使能调度器和中断，导致现象不明确
-        //原因：延时是在使当前任务进入阻塞队列，触发下一个任务，此为链表操作不能被打断
-        // vTaskDelay(100);
+        taskENTER_CRITICAL();//进入临界区防止printf被打断
+        printf("Task1 working count:%d\r\n",++count);
+        HAL_Delay(10);
+        taskEXIT_CRITICAL();
+    }
+}
+void task2(void *pvParameters)
+{
+    uint32_t count = 0;
+    while (1)
+    {
+        taskENTER_CRITICAL();
+        printf("Task2 working count:%d\r\n",++count);
+        HAL_Delay(10);
+        taskEXIT_CRITICAL();
     }
 }

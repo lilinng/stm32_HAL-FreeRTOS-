@@ -33,3 +33,12 @@
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY (5<<4) //0101<<4 -> 01010000   
 //版本兼容宏
 #define configMAX_API_CALL_INTERRUPT_PRIORITY configMAX_SYSCALL_INTERRUPT_PRIORITY
+
+//关于时间片轮转调度的宏
+//开启时间片调度,默认为1
+#define configUSE_TIME_SLICING 1
+//此二宏见上方
+//配置使用抢占优先级
+#define configUSE_PREEMPTION 1
+//配置时钟源频率
+#define configTICK_RATE_HZ ((TickType_t)1000)
