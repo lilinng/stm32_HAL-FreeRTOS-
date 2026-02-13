@@ -43,7 +43,7 @@
 #define configUSE_IDLE_HOOK			0
 #define configUSE_TICK_HOOK			0
 #define configCPU_CLOCK_HZ			( ( unsigned long ) 72000000 )	
-#define configTICK_RATE_HZ			( ( TickType_t ) 20 )
+#define configTICK_RATE_HZ			( ( TickType_t ) 1000 )
 #define configMAX_PRIORITIES		( 5 )
 #define configMINIMAL_STACK_SIZE	( ( unsigned short ) 128 )
 #define configTOTAL_HEAP_SIZE		( ( size_t ) ( 17 * 1024 ) )
@@ -87,12 +87,11 @@ NVIC value of 255. */
 #define vPortSVCHandler	SVC_Handler
 #define INCLUDE_xTaskGetSchedulerState	1
 
-//关于时间片轮转调度的宏
-//开启时间片调度,默认为1
-// #define configUSE_TIME_SLICING 1
-//此二宏见上方
-// #define configUSE_PREEMPTION 1
-// #define configTICK_RATE_HZ ((TickType_t)1000)
-
+//使用xTaskGetHandle函数需要包含该宏
+#define INCLUDE_xTaskGetHandle	                1
+//使用vTaskGetInfo函数需要包含该宏
+#define INCLUDE_uxTaskGetStackHighWaterMark2    1
+//输出格式化
+#define configUSE_STATS_FORMATTING_FUNCTIONS    1
 #endif /* FREERTOS_CONFIG_H */
 

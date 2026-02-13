@@ -102,9 +102,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-  //启动定时器  回调函数见下方
-  HAL_TIM_Base_Start_IT(&htim2);
-  HAL_TIM_Base_Start_IT(&htim3);
+
   //启动FreeRTOS
   printf("FreeRTOS Start\r\n");
   HAL_Delay(10);
