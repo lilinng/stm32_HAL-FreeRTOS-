@@ -1,3 +1,10 @@
+/*
+ * @Author: lilinng 2464532129@qq.com
+ * @Date: 2026-02-12 18:52:37
+ * @LastEditTime: 2026-02-13 23:22:52
+ * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
+ * @Description: 
+ */
 #include "FreeRTOS.h"
 #include "task.h"
 #include "stm32f1xx_hal.h"
@@ -150,5 +157,4 @@ void task2(void *pvParameters)
         printf("%s\r\n\r\n",str);
         vTaskDelay(1000);
     }
-    
 }

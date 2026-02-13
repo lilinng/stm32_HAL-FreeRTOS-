@@ -1,4 +1,11 @@
 /* USER CODE BEGIN Header */
+/*
+ * @Author: lilinng 2464532129@qq.com
+ * @Date: 2026-02-09 19:17:06
+ * @LastEditTime: 2026-02-13 23:37:39
+ * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\Core\Src\main.c
+ * @Description: 
+ */
 /**
   ******************************************************************************
   * @file           : main.c
@@ -15,6 +22,7 @@
   *
   ******************************************************************************
   */
+ 
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
