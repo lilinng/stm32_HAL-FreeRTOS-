@@ -1,9 +1,5 @@
 {
-    "folders": [
-        {
-            "path": "."
-        }
-    ],
+    "folders": [],
     "settings": {
         "terminal.integrated.shellIntegration.enabled": false,
         "clangd.arguments": [
