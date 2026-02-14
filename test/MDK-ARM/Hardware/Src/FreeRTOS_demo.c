@@ -1,7 +1,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-14 00:46:42
+ * @LastEditTime: 2026-02-14 11:41:30
  * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 
  */
@@ -32,6 +32,10 @@ void task1(void *pvParameters);
 
 void task2(void *pvParameters);
 
+/**
+ * @description: 启动FreeRTOS
+ * @return {*}
+ */
 void FreeRTOS_Start(void)
 {
     //创建一个启动任务
@@ -78,19 +82,20 @@ void task1(void *pvParameters)
 {
     while (1)
     {
-        printf("Task1 running...\r\n");
+        // printf("Task1 running...\r\n");
         HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_6);
+        HAL_Delay(20);
         vTaskDelay(500);
     }
 }
 void task2(void *pvParameters)
 {
-    char task_info[100];
+    //获取当前系统时间
+    TickType_t time_count = xTaskGetTickCount();
     while (1)
     {
-        printf("Task2 running...\r\n");
-        vTaskGetRunTimeStats(task_info);
-        printf("%s\r\n",task_info);
-        vTaskDelay(1000);
+        HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_7);
+        HAL_Delay(20);
+        vTaskDelayUntil(&time_count,500);
     }
 }
