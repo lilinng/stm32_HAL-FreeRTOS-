@@ -87,16 +87,6 @@ NVIC value of 255. */
 #define vPortSVCHandler	SVC_Handler
 #define INCLUDE_xTaskGetSchedulerState	1
 
-//运行时间统计相关配置
-#define configGENERATE_RUN_TIME_STATS   1
-//定义用于统计运行时间的定时器的计数值
-#if configGENERATE_RUN_TIME_STATS
-extern volatile unsigned long ulHigFrequencyTimerTicks;
-#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()  (ulHigFrequencyTimerTicks = 0UL)
-#define portGET_RUN_TIME_COUNTER_VALUE()  ulHigFrequencyTimerTicks
-#endif 
 
-#define configUSE_TRACE_FACILITY 1
-#define configUSE_STATS_FORMATTING_FUNCTIONS 1
 
 #endif /* FREERTOS_CONFIG_H */
