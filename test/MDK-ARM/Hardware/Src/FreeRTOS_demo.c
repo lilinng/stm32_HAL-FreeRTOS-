@@ -1,7 +1,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-15 20:49:31
+ * @LastEditTime: 2026-02-17 21:11:18
  * @FilePath: \test (工作区)d:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 用于练习FreeRTOSapi
  */
@@ -29,7 +29,7 @@ TaskHandle_t task1_handle;
 TaskHandle_t task2_handle;
 
 //信号量句柄,也是队列句柄
-QueueHandle_t   User_Binary_handle;
+QueueHandle_t   User_Counting_handle;
 
 /**
  * @description: 启动任务，用于创建其他进程并在创建完成后删除自身
@@ -53,21 +53,24 @@ void task2(void *pvParameters);
  */
 void FreeRTOS_Start(void)
 {
+    UBaseType_t count = 0;
     //在创建任务之前创建信号量
     //  xSemaphoreCreateBinary();   此函数创建时没有释放Binary
     /**
-     * @description: 传入队列句柄,创建二值信号量
+     * @description: 第一个参数最大计数值，第二个初始计数值
      * @return 判断句柄是否为NULL,即可判断是否创建成功
      */
-    vSemaphoreCreateBinary(User_Binary_handle);   //此函数创建后主动释放一次Binarys
+    User_Counting_handle = xSemaphoreCreateCounting(100,0);   //此函数创建后主动释放一次Binarys
     //判断是否成功创建        
-    if(User_Binary_handle != NULL)
+    if(User_Counting_handle != NULL)
     {
-        printf("Create binary successfully\r\n");
+        //创建成功获取计数值并且输出
+        count = uxSemaphoreGetCount(User_Counting_handle);
+        printf("count:%d\r\n",count);
     }
     else
     {
-        printf("Create binary failed\r\n");
+        printf("Create counting failed\r\n");
     }    
     //创建一个启动任务
     xTaskCreate((TaskFunction_t)start_task,
@@ -110,7 +113,7 @@ void start_task(void *pvParameters)
     vTaskDelete(NULL);
 }
 /**
- * @description: 用于按键扫描，当检测到KEY1按下时,释放二值信号量
+ * @description: 用于按键扫描，当检测到KEY1按下时,释放计数信号量
  * @param {void} *pvParameters
  * @return {*}
  */
@@ -123,8 +126,8 @@ void task1(void *pvParameters)
         key_value = Key_Scan();
         if(key_value == KEY1)
         {
-            //释放二值信号量
-            res = xSemaphoreGive(User_Binary_handle);
+            //释放计数信号量
+            res = xSemaphoreGive(User_Counting_handle);
             if(res == pdPASS)
             {
                 printf("Give successfully\r\n");
@@ -138,16 +141,17 @@ void task1(void *pvParameters)
     }
 }
 /**
- * @description: 获取二值信号量,当成功获取信号量后输出信息
+ * @description: 获取计数信号量,当成功获取信号量后输出信息
  * @param {void} *pvParameters
  * @return {*}
  */
 void task2(void *pvParameters)
 {
+    BaseType_t current_count = 0;
     BaseType_t res;
     while (1)
     {
-        res = xSemaphoreTake(User_Binary_handle,portMAX_DELAY);
+        res = xSemaphoreTake(User_Counting_handle,portMAX_DELAY);
         if(res == pdPASS)
         {
             printf("take successfully\r\n");
@@ -156,6 +160,8 @@ void task2(void *pvParameters)
         {
             printf("take failed\r\n");
         }
-        // vTaskDelay(500);
+        current_count = uxSemaphoreGetCount(User_Counting_handle);
+        printf("current_count:%d\r\n",current_count);
+        vTaskDelay(1000);
     }
 }
