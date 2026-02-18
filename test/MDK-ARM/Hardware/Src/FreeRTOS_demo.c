@@ -1,8 +1,8 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-17 21:11:18
- * @FilePath: \test (工作区)d:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
+ * @LastEditTime: 2026-02-18 20:57:28
+ * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 用于练习FreeRTOSapi
  */
 #include "FreeRTOS.h"
@@ -28,8 +28,13 @@ TaskHandle_t task1_handle;
 #define START_TASK2_PRIORITY 3
 TaskHandle_t task2_handle;
 
+//任务3的相关定义
+#define START_TASK3_STACK_SIZE 128
+#define START_TASK3_PRIORITY 4
+TaskHandle_t task3_handle;
+
 //信号量句柄,也是队列句柄
-QueueHandle_t   User_Counting_handle;
+QueueHandle_t   User_handle;
 
 /**
  * @description: 启动任务，用于创建其他进程并在创建完成后删除自身
@@ -47,30 +52,29 @@ void task1(void *pvParameters);
 
 void task2(void *pvParameters);
 
+void task3(void *pvParameters);
+
 /**
  * @description: 启动FreeRTOS
  * @return {*}
  */
 void FreeRTOS_Start(void)
 {
-    UBaseType_t count = 0;
     //在创建任务之前创建信号量
     //  xSemaphoreCreateBinary();   此函数创建时没有释放Binary
     /**
      * @description: 第一个参数最大计数值，第二个初始计数值
      * @return 判断句柄是否为NULL,即可判断是否创建成功
      */
-    User_Counting_handle = xSemaphoreCreateCounting(100,0);   //此函数创建后主动释放一次Binarys
+    vSemaphoreCreateBinary(User_handle);   //此函数创建后主动释放一次Binary
     //判断是否成功创建        
-    if(User_Counting_handle != NULL)
+    if(User_handle != NULL)
     {
-        //创建成功获取计数值并且输出
-        count = uxSemaphoreGetCount(User_Counting_handle);
-        printf("count:%d\r\n",count);
+        printf("Create successfully\r\n");
     }
     else
     {
-        printf("Create counting failed\r\n");
+        printf("Create failed\r\n");
     }    
     //创建一个启动任务
     xTaskCreate((TaskFunction_t)start_task,
@@ -79,7 +83,7 @@ void FreeRTOS_Start(void)
                     (void*)NULL,
                     (UBaseType_t)START_TASK_PRIORITY,
                     (TaskHandle_t*)&start_task_handle);
-                    
+                 
     // 启动调度器(静态开启对应宏后会自动创建空闲任务和软件定时器任务)
     /* 两个分配函数(未开启configKERNEL_PROVIDED_STATIC_MEMORY时需要用户提供实现)
     vApplicationGetIdleTaskMemory & vApplicationGetTimerTaskMemory */
@@ -105,7 +109,12 @@ void start_task(void *pvParameters)
                     (void*)NULL,
                     (UBaseType_t)START_TASK2_PRIORITY,
                     (TaskHandle_t*)&task2_handle);
-
+    xTaskCreate((TaskFunction_t)task3,
+                    (char*)"start_task3",
+                    (uint32_t)START_TASK3_STACK_SIZE,
+                    (void*)NULL,
+                    (UBaseType_t)START_TASK3_PRIORITY,
+                    (TaskHandle_t*)&task3_handle);
     //退出临界区代码
     taskEXIT_CRITICAL();
 
@@ -113,55 +122,92 @@ void start_task(void *pvParameters)
     vTaskDelete(NULL);
 }
 /**
- * @description: 用于按键扫描，当检测到KEY1按下时,释放计数信号量
+ * @description: 低优先级任务，对比高优先级先占用信号量的时间久一点
  * @param {void} *pvParameters
  * @return {*}
  */
 void task1(void *pvParameters)
 {
     BaseType_t res;
-    KEY_ENUM key_value = NO_PRESS;
     while (1)
     {
-        key_value = Key_Scan();
-        if(key_value == KEY1)
+        //获取并输出信号量
+        res = xSemaphoreTake(User_handle,portMAX_DELAY);
+        if(res == pdPASS)
         {
-            //释放计数信号量
-            res = xSemaphoreGive(User_Counting_handle);
-            if(res == pdPASS)
-            {
-                printf("Give successfully\r\n");
-            }
-            else 
-            {
-                printf("Give failed\r\n");
-            }
+            printf("low priority task semaphor successfully\r\n");
         }
-        vTaskDelay(500);
+        else
+        {
+            printf("low priority task semaphor failed\r\n");
+
+        }
+        //执行其他逻辑(延时)
+        printf("task 1 running\r\n");
+        HAL_Delay(3000);
+
+        res = 0;
+
+        //释放信号量
+        res = xSemaphoreGive(User_handle);
+        if(res == pdPASS)
+        {
+            printf("task 1 Give successfully\r\n");
+        }
+        else 
+        {
+            printf("task 1 Give failed\r\n");
+        }
+        vTaskDelay(1000);
     }
 }
 /**
- * @description: 获取计数信号量,当成功获取信号量后输出信息
+ * @description: 中等优先级任务，简单的应用任务
  * @param {void} *pvParameters
  * @return {*}
  */
 void task2(void *pvParameters)
 {
-    BaseType_t current_count = 0;
-    BaseType_t res;
     while (1)
     {
-        res = xSemaphoreTake(User_Counting_handle,portMAX_DELAY);
+        printf("task 2 running\r\n");
+        HAL_Delay(1500);
+        printf("task 2 finish HAL_Delay\r\n");
+        vTaskDelay(1000);
+    }
+}
+void task3(void *pvParameters)
+{
+    BaseType_t res;
+    while(1)
+    {
+        //获取并输出信号量
+        res = xSemaphoreTake(User_handle,portMAX_DELAY);
         if(res == pdPASS)
         {
-            printf("take successfully\r\n");
+            printf("High priority task semaphor successfully\r\n");
+        }
+        else
+        {
+            printf("High priority task semaphor failed\r\n");
+
+        }
+        //执行其他逻辑(延时)
+        printf("task 3 running\r\n");
+        HAL_Delay(3000);
+
+        res = 0;
+        
+        //释放信号量
+        res = xSemaphoreGive(User_handle);
+        if(res == pdPASS)
+        {
+            printf("task 3 Give successfully\r\n");
         }
         else 
         {
-            printf("take failed\r\n");
+            printf("task 3 Give failed\r\n");
         }
-        current_count = uxSemaphoreGetCount(User_Counting_handle);
-        printf("current_count:%d\r\n",current_count);
         vTaskDelay(1000);
     }
 }
