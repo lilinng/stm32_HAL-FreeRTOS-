@@ -59,3 +59,9 @@ extern volatile unsigned long ulHigFrequencyTimerTicks;
 
 #define configUSE_TRACE_FACILITY 1
 #define configUSE_STATS_FORMATTING_FUNCTIONS 1
+
+//开启计数型信号量
+#define configUSE_COUNTING_SEMAPHORES 1
+
+//开启互斥型信号量
+#define configUSE_MUTEXES 1

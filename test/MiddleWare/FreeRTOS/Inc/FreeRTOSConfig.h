@@ -87,7 +87,7 @@ NVIC value of 255. */
 #define vPortSVCHandler	SVC_Handler
 #define INCLUDE_xTaskGetSchedulerState	1
 
-//开启计数型信号量
-#define configUSE_COUNTING_SEMAPHORES 1
+//开启互斥型信号量
+#define configUSE_MUTEXES 1
 
 #endif /* FREERTOS_CONFIG_H */

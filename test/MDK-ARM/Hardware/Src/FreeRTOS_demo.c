@@ -1,7 +1,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-18 20:57:28
+ * @LastEditTime: 2026-02-19 13:06:01
  * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 用于练习FreeRTOSapi
  */
@@ -60,22 +60,16 @@ void task3(void *pvParameters);
  */
 void FreeRTOS_Start(void)
 {
-    //在创建任务之前创建信号量
-    //  xSemaphoreCreateBinary();   此函数创建时没有释放Binary
-    /**
-     * @description: 第一个参数最大计数值，第二个初始计数值
-     * @return 判断句柄是否为NULL,即可判断是否创建成功
-     */
-    vSemaphoreCreateBinary(User_handle);   //此函数创建后主动释放一次Binary
-    //判断是否成功创建        
-    if(User_handle != NULL)
+    //创建互斥信号量,创建后默认释放一次信号量
+    User_handle = xSemaphoreCreateMutex();
+    if(User_handle == NULL)
     {
-        printf("Create successfully\r\n");
+        printf("mutex create failed\r\n");
     }
     else
     {
-        printf("Create failed\r\n");
-    }    
+        printf("mutex create successfully\r\n");
+    }
     //创建一个启动任务
     xTaskCreate((TaskFunction_t)start_task,
                     (char*)"start_static_task",
