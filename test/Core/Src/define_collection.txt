@@ -65,3 +65,6 @@ extern volatile unsigned long ulHigFrequencyTimerTicks;
 
 //开启互斥型信号量
 #define configUSE_MUTEXES 1
+
+//禁用任务通知
+#define configUSE_TASK_NOTIFICATIONS 0

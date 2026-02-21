@@ -1,7 +1,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-20 20:59:06
+ * @LastEditTime: 2026-02-21 13:15:54
  * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 用于练习FreeRTOSapi
  */
@@ -64,20 +64,6 @@ void task3(void *pvParameters);
  */
 void FreeRTOS_Start(void)
 {
-    //事件标志组创建
-    /**
-     * @description: 创建事件标志组
-     * @return: {EventGroupHandle_t} 返回句柄
-     */
-    User_handle = xEventGroupCreate();
-    if(User_handle != NULL)
-    {
-        printf("event group create successfully\r\n");
-    }
-    else
-    {
-        printf("create failed\r\n");
-    }
     //创建一个启动任务
     xTaskCreate((TaskFunction_t)start_task,
                     (char*)"start_static_task",
@@ -124,59 +110,49 @@ void start_task(void *pvParameters)
     vTaskDelete(NULL);
 }
 /**
- * @description: 读取按键按下键值，根据不同键值将事件标志组相应事件置1，模拟事件发生
+ * @description: 用于按键扫描，当检测到按键KEY1被按下时，将发送任务通知
  * @return {*}
  */
 void task1(void *pvParameters)
 {
+    BaseType_t res;
     KEY_ENUM key_value = NO_PRESS;
     while (1)
     {
         key_value = Key_Scan();
         if(key_value == KEY1)
         {
-            //key1按下，对bit0置1
+            //发送任务通知
             /**
-             * @description: 第一个参数句柄，第二个参数置?
-             * @return {EventBits_t}
+             * @description: 传输要发送的任务句柄
+             * @return {BaseType_t}
              */
-            xEventGroupSetBits(User_handle,EVENT_GROUP_BIT_0);
-            printf("key1 pressed\r\n");
-        }
-        else if(key_value == KEY2)
-        {
-            //key2按下，对bit1置1
-            xEventGroupSetBits(User_handle,EVENT_GROUP_BIT_1);
-            printf("key2 pressed\r\n");
+            res = xTaskNotifyGive(task2_handle);
+            if(res == pdPASS)
+            {
+                printf("task1 send successfully\r\n");
+            }
         }
         vTaskDelay(500);
     }
 }
 /**
- * @description: 同时等待事件标志组中的多个事件位，当这些事件位都置一的话执行相应的处理
+ * @description: 用于接收任务通知，并打印相关提示信息
  * @param {void} *pvParameters
  * @return {*}
  */
 void task2(void *pvParameters)
 {
-    EventBits_t res;
+    uint32_t notify_value;
     while (1)
     {       
         /**
-         * @description: 
-         * @param {EventGroupHandle_t} xEventGroup  句柄
-         * @param {EventBits_t} uxBitsToWaitFor     需要等待的标志位
-         * @param {BaseType_t} xClearOnExit         退出时是否清零所有标志位
-         * @param {BaseType_t} xWaitForAllBits      是否等待所有标志位成立
-         * @param {TickType_t} xTicksToWait         等待期间进入阻塞状态
-         * @return {EventBits_t}
+         * @description: 第一个参数是否清零,不清零通知值-1;第二个参数是否阻塞等待
+         * @return {uint32_t}
          */
-        res = xEventGroupWaitBits(User_handle,
-                            EVENT_GROUP_BIT_0|EVENT_GROUP_BIT_1,
-                            pdTRUE,     //pdFALSE
-                            pdTRUE,     //pdFALSE
-                            portMAX_DELAY);
-        printf("task2 event group:%#x\r\n",res);
+        notify_value = ulTaskNotifyTake(pdTRUE,portMAX_DELAY);
+        printf("task2 take value:%d\r\n",notify_value);
+        vTaskDelay(3000);
     }
 }
 void task3(void *pvParameters)
