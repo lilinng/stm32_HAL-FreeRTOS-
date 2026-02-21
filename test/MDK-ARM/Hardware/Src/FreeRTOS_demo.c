@@ -1,7 +1,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-21 14:39:27
+ * @LastEditTime: 2026-02-21 14:56:02
  * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 用于练习FreeRTOSapi
  */
@@ -34,12 +34,10 @@ TaskHandle_t task2_handle;
 #define START_TASK3_PRIORITY 4
 TaskHandle_t task3_handle;
 
-//事件标志组句柄
-EventGroupHandle_t  User_handle;
+//通知值定义
+#define EVENT_BIT0 (1<<0)
+#define EVENT_BIT1 (1<<1)
 
-//事件标志组相关定义
-#define EVENT_GROUP_BIT_0   (1<<0)
-#define EVENT_GROUP_BIT_1   (1<<1)
 /**
  * @description: 启动任务，用于创建其他进程并在创建完成后删除自身
  * @param {void} *pvParameters
@@ -120,7 +118,7 @@ void task1(void *pvParameters)
     while (1)
     {
         key_value = Key_Scan();
-        if(key_value == KEY1 || key_value == KEY2)
+        if(key_value == KEY1)
         {
             //发送任务通知
             /**
@@ -132,7 +130,15 @@ void task1(void *pvParameters)
              * @param {uint32_t *} pulPreviousNotificationValue NULL    // 此参数无需填写
              * @return {*}
              */
-            xTaskNotify(task2_handle,key_value,eSetValueWithoutOverwrite);
+            xTaskNotify(task2_handle,EVENT_BIT0,eSetBits);
+            if(res == pdPASS)
+            {
+                printf("task1 send successfully:[%d]\r\n",key_value);
+            }
+        }
+        else if(key_value == KEY2)
+        {
+            res = xTaskNotify(task2_handle,EVENT_BIT1,eSetBits);
             if(res == pdPASS)
             {
                 printf("task1 send successfully:[%d]\r\n",key_value);
@@ -150,6 +156,7 @@ void task2(void *pvParameters)
 {
     BaseType_t res;
     uint32_t notify_value;
+    uint32_t out = 0;
     while (1)
     {       
             /**
@@ -162,7 +169,7 @@ void task2(void *pvParameters)
              * @return {BaseType_t}
              */
         res = xTaskNotifyWait(
-                            0x00000000, //接收通知前是否清零,哪一位清零就置1
+                            0x00000006, //接收通知前是否清零,哪一位清零就置1
                             0xFFFFFFFF, //接收通知后是否清零，置1清零
                             &notify_value,
                             portMAX_DELAY);
@@ -171,6 +178,18 @@ void task2(void *pvParameters)
             printf("task2 take value:%d\r\n",notify_value);
         }
 
+        if(notify_value & EVENT_BIT0)   //判断接收
+        {
+            out |= notify_value;
+            printf("event1 take\r\n");
+        }
+        if(notify_value & EVENT_BIT1)
+        {
+            out |= notify_value;
+            printf("evevnt2 take\r\n");
+        }
+        printf("out:%#x",out);
+        vTaskDelay(1000);
     }
 }
 void task3(void *pvParameters)
