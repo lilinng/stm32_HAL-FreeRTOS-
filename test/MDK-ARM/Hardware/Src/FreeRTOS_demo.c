@@ -1,7 +1,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-21 13:15:54
+ * @LastEditTime: 2026-02-21 14:39:27
  * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 用于练习FreeRTOSapi
  */
@@ -120,17 +120,22 @@ void task1(void *pvParameters)
     while (1)
     {
         key_value = Key_Scan();
-        if(key_value == KEY1)
+        if(key_value == KEY1 || key_value == KEY2)
         {
             //发送任务通知
             /**
-             * @description: 传输要发送的任务句柄
-             * @return {BaseType_t}
+             * @description: 
+             * @param {TaskHandle_t}*** xTaskToNotify 接收任务句柄
+             * @param {UBaseType_t} uxIndexToNotify tskDEFAULT_INDEX_TO_NOTIFY  //此参数无需填写
+             * @param {uint32_t}*** ulValue    通知值
+             * @param {eNotifyAction}*** eAction   发送行为
+             * @param {uint32_t *} pulPreviousNotificationValue NULL    // 此参数无需填写
+             * @return {*}
              */
-            res = xTaskNotifyGive(task2_handle);
+            xTaskNotify(task2_handle,key_value,eSetValueWithoutOverwrite);
             if(res == pdPASS)
             {
-                printf("task1 send successfully\r\n");
+                printf("task1 send successfully:[%d]\r\n",key_value);
             }
         }
         vTaskDelay(500);
@@ -143,21 +148,33 @@ void task1(void *pvParameters)
  */
 void task2(void *pvParameters)
 {
+    BaseType_t res;
     uint32_t notify_value;
     while (1)
     {       
-        /**
-         * @description: 第一个参数是否清零,不清零通知值-1;第二个参数是否阻塞等待
-         * @return {uint32_t}
-         */
-        notify_value = ulTaskNotifyTake(pdTRUE,portMAX_DELAY);
-        printf("task2 take value:%d\r\n",notify_value);
-        vTaskDelay(3000);
+            /**
+             * @description: 
+             * @param {UBaseType_t} uxIndexToWaitOn //此参数无需填写
+             * @param {uint32_t} ulBitsToClearOnEntry   //进入前是否清零
+             * @param {uint32_t} ulBitsToClearOnExit    //退出前是否清零
+             * @param {uint32_t *} pulNotificationValue //通知值存放的地址
+             * @param {TickType_t} xTicksToWait         //阻塞时间
+             * @return {BaseType_t}
+             */
+        res = xTaskNotifyWait(
+                            0x00000000, //接收通知前是否清零,哪一位清零就置1
+                            0xFFFFFFFF, //接收通知后是否清零，置1清零
+                            &notify_value,
+                            portMAX_DELAY);
+        if(res == pdTRUE)
+        {
+            printf("task2 take value:%d\r\n",notify_value);
+        }
+
     }
 }
 void task3(void *pvParameters)
 {
-    BaseType_t res;
     while(1)
     {
 
