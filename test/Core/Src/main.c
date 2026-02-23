@@ -44,12 +44,19 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+//extern hal库的时钟源句柄，用于下面的HAL_Delay_us
+extern TIM_HandleTypeDef htim7;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+/**
+ * @description: 依赖hal库的时钟源timer7实现延时us
+ * @param {uint32_t} us
+ * @return {*}
+ */
+void HAL_Delay_us(uint32_t us);
 
 /* USER CODE END PFP */
 
@@ -143,7 +150,14 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_Delay_us(uint32_t us)
+{
+    uint32_t start = __HAL_TIM_GET_COUNTER(&htim7);
+    while ((__HAL_TIM_GET_COUNTER(&htim7) - start) < us)
+    {
+        // 忙等
+    }
+}
 /* USER CODE END 4 */
 
 /**
