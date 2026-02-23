@@ -1,7 +1,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-23 13:48:50
+ * @LastEditTime: 2026-02-23 15:54:56
  * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 用于练习FreeRTOSapi
  */
@@ -11,13 +11,13 @@
 #include "semphr.h" //信号量相关头文件
 #include "event_groups.h"   //事件标志组头文件
 #include "timers.h"         //软件定时器头文件
+#include "FreeRTOSConfig.h"
 #include "stm32f1xx_hal.h"
 #include "stdio.h"
 #include "gpio.h"
 
-//软件定时器句柄定义
-TimerHandle_t My_software_timer1Handle = NULL;
-TimerHandle_t My_software_timer2Handle = NULL;
+//二值量的定义
+QueueHandle_t Binary_Handle;
 
 //启动任务的相关定义
 #define START_TASK_STACK_SIZE 128
@@ -39,13 +39,27 @@ TaskHandle_t task1_handle;
 // #define START_TASK3_PRIORITY 4
 // TaskHandle_t task3_handle;
 
-/**
- * @description: 软件定时器回调函数定义
- * @param {TimerHandle_t} xTimer
- * @return {void}
- */
-static void My_software_timer1callback(TimerHandle_t xTimer);
-static void My_software_timer2callback(TimerHandle_t xTimer);
+/*************************低功耗模式进入睡眠前和退出后的实现********************************** */
+void PRE_SLEEP_PROCESSING()
+{
+    //进入睡眠前的处理，可以关闭外设时钟
+    __HAL_RCC_GPIOA_CLK_DISABLE();
+    __HAL_RCC_GPIOB_CLK_DISABLE();
+    __HAL_RCC_GPIOC_CLK_DISABLE();
+    __HAL_RCC_GPIOD_CLK_DISABLE();
+    __HAL_RCC_GPIOE_CLK_DISABLE();
+}
+void POST_SLEEP_PROCESSING()
+{
+    //退出睡眠后的处理
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+
+
+}
 
 /**
  * @description: 启动任务，用于创建其他进程并在创建完成后删除自身
@@ -70,37 +84,7 @@ void task1(void *pvParameters);
 void FreeRTOS_Start(void)
 {
     /********************创建启动任务和必要量**************************/
-        /**
-     * @description: 创建一次性软件定时器
-     * @param {char} *pcTimerName   名字
-     * @param {TickType_t} xTimerPeriodInTicks  周期
-     * @param {BaseType_t} xAutoReload  是否自动重载
-     * @param {void} *pvTimerID         定时器id
-     * @param {TimerCallbackFunction_t} pxCallbackFunction  回调函数
-     * @return {TimerHandle_t}
-     */
-    My_software_timer1Handle = xTimerCreate(
-                "My_software_timer1",
-                (TickType_t)500,    //500个FreeRTOS的时钟节拍,由configTICK_RATE_HZ定义
-                pdFALSE,            //一次性
-                (void*)2,
-                (TimerCallbackFunction_t)My_software_timer1callback
-    );
-    if(My_software_timer1Handle != NULL)
-    {
-        printf("software_timer1 create successfully\r\n");
-    }
-    My_software_timer2Handle = xTimerCreate(
-                "My_software_timer2",
-                (TickType_t)1000,    //1000个FreeRTOS的时钟节拍,由configTICK_RATE_HZ定义
-                pdTRUE,            //周期
-                (void*)1,
-                (TimerCallbackFunction_t)My_software_timer2callback
-    );
-    if(My_software_timer2Handle != NULL)
-    {
-        printf("software_timer2 create successfully\r\n");
-    }
+    vSemaphoreCreateBinary(Binary_Handle);
     //创建一个启动任务
     xTaskCreate((TaskFunction_t)start_task,
                     (char*)"start_static_task",
@@ -149,22 +133,6 @@ void start_task(void *pvParameters)
 }
 
 /**
- * @description: 软件定时器回调函数实现
- * @param {TimerHandle_t} xTimer
- * @return {void}
- */
-static void My_software_timer1callback(TimerHandle_t xTimer)
-{
-    static uint16_t cbcnt = 0;
-    printf("timer1 cb count:%d\r\n",++cbcnt);
-}
-static void My_software_timer2callback(TimerHandle_t xTimer)
-{
-    static uint16_t cbcnt = 0;
-    printf("timer2 cb count:%d\r\n",++cbcnt);
-}
-
-/**
  * @description: 用于按键扫描，当检测到按键KEY1被按下时，将发送任务通知
  * @return {*}
  */
@@ -174,39 +142,7 @@ void task1(void *pvParameters)
     KEY_ENUM key_value = NO_PRESS;
     while (1)
     {
-        key_value = Key_Scan();
-        if(key_value == KEY1)
-        {
-            //开启定时器
-            /**
-             * @description: 第一参数句柄，第二参数等待时间.详情见定义
-             * @return {*}
-             */
-            res = xTimerStart(My_software_timer1Handle,portMAX_DELAY);
-            if(res != pdFAIL)
-            {
-                printf("timer1 start\r\n");
-            }
-            res = xTimerStart(My_software_timer2Handle,portMAX_DELAY);
-            if(res != pdFAIL)
-            {
-                printf("timer2 start\r\n");
-            }
-        }
-        else if(key_value == KEY2)
-        {
-            //关闭定时器,与开启相同的形参列表
-            res = xTimerStop(My_software_timer1Handle,portMAX_DELAY);
-            if(res != pdFAIL)
-            {
-                printf("timer1 stop\r\n");
-            }
-            res = xTimerStop(My_software_timer2Handle,portMAX_DELAY);
-            if(res != pdFAIL)
-            {
-                printf("timer2 stop\r\n");
-            }
-        }
+
         vTaskDelay(500);
     }
 }

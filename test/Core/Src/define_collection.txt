@@ -68,3 +68,13 @@ extern volatile unsigned long ulHigFrequencyTimerTicks;
 
 //禁用任务通知
 #define configUSE_TASK_NOTIFICATIONS 0
+
+//低功耗模式
+//使能低功耗模式
+#define configUSE_TICKLESS_IDLE 1
+//系统进入相应低功耗模式的最短时长，默认2
+#define EXPECTED_IDLE_TIME_BEFORE_SLEEP 2
+//系统进入低功耗模式之前执行的事务
+#define configPRE_SLEEP_PROCESSING(x)
+//系统退出低功耗模式之后执行的事务
+#define POST_SLEEP_PROCESSING(x)s
