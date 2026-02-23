@@ -100,14 +100,4 @@ NVIC value of 255. */
 #define configTIMER_QUEUE_LENGTH    5   //软件定时器任务的消息队列长度,即同时可以有多少个定时器处于活动状态
 #define configTIMER_TASK_STACK_DEPTH    (configMINIMAL_STACK_SIZE*2)    //软件定时器任务的堆栈深度,默认设置为最小堆栈深度的两倍
 
-//低功耗模式
-//使能低功耗模式
-#define configUSE_TICKLESS_IDLE 1
-//系统进入相应低功耗模式的最短时长，默认2
-#define EXPECTED_IDLE_TIME_BEFORE_SLEEP 2
-//系统进入低功耗模式之前执行的事务
-#define configPRE_SLEEP_PROCESSING(x)   PRE_SLEEP_PROCESSING()
-//系统退出低功耗模式之后执行的事务       
-#define POST_SLEEP_PROCESSING(x)        POST_SLEEP_PROCESSING()
-
 #endif /* FREERTOS_CONFIG_H */

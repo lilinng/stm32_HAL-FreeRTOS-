@@ -1,7 +1,7 @@
 /*
  * @Author: lilinng 2464532129@qq.com
  * @Date: 2026-02-12 18:52:37
- * @LastEditTime: 2026-02-23 15:54:56
+ * @LastEditTime: 2026-02-23 16:38:26
  * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
  * @Description: 用于练习FreeRTOSapi
  */
@@ -16,9 +16,6 @@
 #include "stdio.h"
 #include "gpio.h"
 
-//二值量的定义
-QueueHandle_t Binary_Handle;
-
 //启动任务的相关定义
 #define START_TASK_STACK_SIZE 128
 #define START_TASK_PRIORITY 1
@@ -28,38 +25,6 @@ TaskHandle_t start_task_handle;
 #define START_TASK1_STACK_SIZE 128
 #define START_TASK1_PRIORITY 2
 TaskHandle_t task1_handle;
-
-// //任务2的相关定义
-// #define START_TASK2_STACK_SIZE 128
-// #define START_TASK2_PRIORITY 3
-// TaskHandle_t task2_handle;
-
-// //任务3的相关定义
-// #define START_TASK3_STACK_SIZE 128
-// #define START_TASK3_PRIORITY 4
-// TaskHandle_t task3_handle;
-
-/*************************低功耗模式进入睡眠前和退出后的实现********************************** */
-void PRE_SLEEP_PROCESSING()
-{
-    //进入睡眠前的处理，可以关闭外设时钟
-    __HAL_RCC_GPIOA_CLK_DISABLE();
-    __HAL_RCC_GPIOB_CLK_DISABLE();
-    __HAL_RCC_GPIOC_CLK_DISABLE();
-    __HAL_RCC_GPIOD_CLK_DISABLE();
-    __HAL_RCC_GPIOE_CLK_DISABLE();
-}
-void POST_SLEEP_PROCESSING()
-{
-    //退出睡眠后的处理
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOB_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-    __HAL_RCC_GPIOD_CLK_ENABLE();
-    __HAL_RCC_GPIOE_CLK_ENABLE();
-
-
-}
 
 /**
  * @description: 启动任务，用于创建其他进程并在创建完成后删除自身
@@ -74,8 +39,6 @@ void start_task(void *pvParameters);
  * @return {*}
  */
 void task1(void *pvParameters);
-// void task2(void *pvParameters);
-// void task3(void *pvParameters);
 
 /**
  * @description: 启动FreeRTOS
@@ -84,7 +47,6 @@ void task1(void *pvParameters);
 void FreeRTOS_Start(void)
 {
     /********************创建启动任务和必要量**************************/
-    vSemaphoreCreateBinary(Binary_Handle);
     //创建一个启动任务
     xTaskCreate((TaskFunction_t)start_task,
                     (char*)"start_static_task",
@@ -111,20 +73,6 @@ void start_task(void *pvParameters)
                     (void*)NULL,
                     (UBaseType_t)START_TASK1_PRIORITY,
                     (TaskHandle_t*)&task1_handle);
-
-    //创建任务2
-    // xTaskCreate((TaskFunction_t)task2,
-    //                 (char*)"start_task2",
-    //                 (uint32_t)START_TASK2_STACK_SIZE,
-    //                 (void*)NULL,
-    //                 (UBaseType_t)START_TASK2_PRIORITY,
-    //                 (TaskHandle_t*)&task2_handle);
-    // xTaskCreate((TaskFunction_t)task3,
-    //                 (char*)"start_task3",
-    //                 (uint32_t)START_TASK3_STACK_SIZE,
-    //                 (void*)NULL,
-    //                 (UBaseType_t)START_TASK3_PRIORITY,
-    //                 (TaskHandle_t*)&task3_handle);
     //退出临界区代码
     taskEXIT_CRITICAL();
 
@@ -133,71 +81,31 @@ void start_task(void *pvParameters)
 }
 
 /**
- * @description: 用于按键扫描，当检测到按键KEY1被按下时，将发送任务通知
+ * @description: 当KEY1按下申请内存，KEY2按下则释放内存并输出
  * @return {*}
  */
 void task1(void *pvParameters)
 {
-    BaseType_t res;
+    char* receive = NULL;
     KEY_ENUM key_value = NO_PRESS;
     while (1)
     {
-
+        key_value = Key_Scan();
+        if(key_value == KEY1)
+        {
+            /**
+             * @description: 申请内存,单位Byte;实际大小为heap结构体+字节对齐损耗
+             * @param {size_t} xWantedSize
+             * @return {void*}
+             */
+            receive = (char*)pvPortMalloc(20);
+            printf("Apply 20;Remaining %d\r\n",xPortGetFreeHeapSize());
+        }
+        if(key_value == KEY2)
+        {
+            vPortFree((void*)receive);
+            printf("Release 20;Remain %d\r\n",xPortGetFreeHeapSize());
+        }
         vTaskDelay(500);
     }
 }
-
-/**
- * @description: 用于接收任务通知，并打印相关提示信息
- * @param {void} *pvParameters
- * @return {*}
- */
-// void task2(void *pvParameters)
-// {
-//     BaseType_t res;
-//     uint32_t notify_value;
-//     uint32_t out = 0;
-//     while (1)
-//     {       
-//             /**
-//              * @description: 
-//              * @param {UBaseType_t} uxIndexToWaitOn //此参数无需填写
-//              * @param {uint32_t} ulBitsToClearOnEntry   //进入前是否清零
-//              * @param {uint32_t} ulBitsToClearOnExit    //退出前是否清零
-//              * @param {uint32_t *} pulNotificationValue //通知值存放的地址
-//              * @param {TickType_t} xTicksToWait         //阻塞时间
-//              * @return {BaseType_t}
-//              */
-//         res = xTaskNotifyWait(
-//                             0x00000006, //接收通知前是否清零,哪一位清零就置1
-//                             0xFFFFFFFF, //接收通知后是否清零，置1清零
-//                             &notify_value,
-//                             portMAX_DELAY);
-//         if(res == pdTRUE)
-//         {
-//             printf("task2 take value:%d\r\n",notify_value);
-//         }
-
-//         if(notify_value & EVENT_BIT0)   //判断接收
-//         {
-//             out |= notify_value;
-//             printf("event1 take\r\n");
-//         }
-//         if(notify_value & EVENT_BIT1)
-//         {
-//             out |= notify_value;
-//             printf("evevnt2 take\r\n");
-//         }
-//         printf("out:%#x",out);
-//         vTaskDelay(1000);
-//     }
-// }
-
-// void task3(void *pvParameters)
-// {
-//     while(1)
-//     {
-
-//         vTaskDelay(1000);
-//     }
-// }
