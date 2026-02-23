@@ -1,3 +1,10 @@
+/*
+ * @Author: lilinng 2464532129@qq.com
+ * @Date: 2026-02-23 14:34:32
+ * @LastEditTime: 2026-02-23 14:36:48
+ * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_hd_c\test\MDK-ARM\Hardware\Src\FreeRTOS_demo.c
+ * @Description: 用于练习FreeRTOS api的.c文件
+ */
 #include "FreeRTOS.h"
 #include "task.h"
 #include "stm32f1xx_hal.h"
