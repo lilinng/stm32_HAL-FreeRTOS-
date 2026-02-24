@@ -1,4 +1,11 @@
 /*
+ * @Author: userName userEmail
+ * @Date: 2026-02-23 14:20:09
+ * @LastEditTime: 2026-02-25 01:23:49
+ * @FilePath: \test_EIDEd:\MCU\stm32\stm32_practise\VS+HAL\stm32_HAL-FreeRTOS-\test\MiddleWare\FreeRTOS\Inc\FreeRTOSConfig.h
+ * @Description: 
+ */
+/*
  * FreeRTOS V202212.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -82,7 +89,7 @@ NVIC value of 255. */
 #define configLIBRARY_KERNEL_INTERRUPT_PRIORITY	15
 
 #define xPortPendSVHandler	PendSV_Handler
-#define vPortSVHandler	SVC_Handler
+#define vPortSVCHandler	SVC_Handler
 #define INCLUDE_xTaskSysTickSchedulerState	1
 
 #endif /* FREERTOS_CONFIG_H */
